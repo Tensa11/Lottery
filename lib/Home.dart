@@ -258,13 +258,13 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                         MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            '${_generatePrize()}',
+                                            _generatePrize(),
                                             style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
-                                            '$draw',
+                                            draw,
                                             style:
                                             const TextStyle(fontSize: 16),
                                           ),
@@ -272,11 +272,11 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        '${['2PM', '5PM', '9PM'][index]}', // Use the index to get time in order
+                                        ['2PM', '5PM', '9PM'][index], // Use the index to get time in order
                                         style: const TextStyle(fontSize: 16),
                                       ),
                                       const SizedBox(height: 10),
-                                      Container(
+                                      SizedBox(
                                         height: 200,
                                         child: LineChart(
                                           LineChartData(
@@ -335,13 +335,13 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                         MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            '${_generatePrize()}',
+                                            _generatePrize(),
                                             style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
-                                            '$draw',
+                                            draw,
                                             style:
                                             const TextStyle(fontSize: 16),
                                           ),
@@ -349,11 +349,11 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        '${['2PM', '5PM', '9PM'][index]}', // Use the index to get time in order
+                                        ['2PM', '5PM', '9PM'][index], // Use the index to get time in order
                                         style: const TextStyle(fontSize: 16),
                                       ),
                                       const SizedBox(height: 10),
-                                      Container(
+                                      SizedBox(
                                         height: 200,
                                         child: LineChart(
                                           LineChartData(

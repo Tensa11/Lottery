@@ -38,7 +38,6 @@ class _AddTickState extends State<AddTick> {
         ),
         title: const Text('Add Transactions'),
       ),
-
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(25),
@@ -240,7 +239,7 @@ class _AddTickState extends State<AddTick> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Next Card
+              // Table Card
               Card(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
