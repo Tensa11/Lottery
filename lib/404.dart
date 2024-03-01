@@ -12,7 +12,8 @@ class UnderConstructionPage extends StatelessWidget {
       ),
       body: Center(
         child: Lottie.asset(
-          'assets/lottie/UnderConstruction.json', // Replace this with your Lottie animation file path
+          'assets/lottie/UnderConstruction.json',
+          // Replace this with your Lottie animation file path
           width: 400,
           height: 400,
           fit: BoxFit.cover,

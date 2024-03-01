@@ -372,7 +372,6 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                                 }),
                                                 isCurved: true,
                                                 curveSmoothness: 0.5,
-                                                // Adjust smoothness of the curve
                                                 colors: [Colors.blue],
                                                 barWidth: 3,
                                                 isStrokeCapRound: true,

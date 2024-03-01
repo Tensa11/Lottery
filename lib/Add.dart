@@ -29,7 +29,8 @@ class _AddTickState extends State<AddTick> {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context); // Pop the current screen when the leading icon is tapped
+            Navigator.pop(
+                context); // Pop the current screen when the leading icon is tapped
           },
           child: const Icon(
             Icons.arrow_back,
