@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'Trans.dart';
+
 class AddTick extends StatefulWidget {
   const AddTick({Key? key}) : super(key: key);
 
@@ -10,11 +12,12 @@ class AddTick extends StatefulWidget {
 
 class _AddTickState extends State<AddTick> {
   String selectedGame = '3D'; // Initialize with a default game selection
-  String selectedTiming = '2PM'; // Initialize with a default timing selection
-  String selectedType =
-      'Straight'; // Initialize with a default timing selection
+  String selectedTiming = '2:00 PM'; // Initialize with a default timing selection
+  String selectedType = 'Straight'; // Initialize with a default timing selection
   TextEditingController betNumberController = TextEditingController();
   TextEditingController betAmountController = TextEditingController();
+
+  List<DataRow> betDataRows = []; // List to store data rows
 
   @override
   void dispose() {
@@ -41,7 +44,7 @@ class _AddTickState extends State<AddTick> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(30),
           child: Column(
             children: [
               Card(
@@ -210,8 +213,8 @@ class _AddTickState extends State<AddTick> {
                                     child: TextField(
                                       controller: betAmountController,
                                       keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: true),
+                                      const TextInputType.numberWithOptions(
+                                          decimal: true),
                                       decoration: const InputDecoration(
                                         labelText: 'Bet Amount',
                                         border: OutlineInputBorder(),
@@ -226,7 +229,7 @@ class _AddTickState extends State<AddTick> {
                                 height: 40.0,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                    // Add logic to confirm the bet
+                                    _addBet(); // Call method to add bet
                                   },
                                   child: const Text('ADD BET'),
                                 ),
@@ -268,15 +271,7 @@ class _AddTickState extends State<AddTick> {
                                 DataColumn(label: Text('Time')),
                                 DataColumn(label: Text('Amount')),
                               ],
-                              rows: [
-                                DataRow(cells: [
-                                  DataCell(Text(betNumberController.text)),
-                                  DataCell(Text(selectedGame)),
-                                  DataCell(Text(selectedType)),
-                                  DataCell(Text(selectedTiming)),
-                                  DataCell(Text(betAmountController.text)),
-                                ]),
-                              ],
+                              rows: betDataRows,
                             ),
                           ),
                         ),
@@ -287,9 +282,14 @@ class _AddTickState extends State<AddTick> {
                         height: 40.0,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Add logic to confirm the bet
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TransactionHistoryPage(transactionData: betDataRows),
+                              ),
+                            );
                           },
-                          child: const Text('SUBMIT BET'),
+                          child: Text('SUBMIT'),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -298,7 +298,7 @@ class _AddTickState extends State<AddTick> {
                         height: 40.0,
                         child: ElevatedButton(
                           onPressed: () {
-                            // Add logic to confirm the bet
+                            // Add logic to connect to printer
                           },
                           child: const Text('CONNECT PRINTER'),
                         ),
@@ -313,6 +313,24 @@ class _AddTickState extends State<AddTick> {
       ),
     );
   }
+
+  // Method to add the selected and input data to the table
+  void _addBet() {
+    setState(() {
+      betDataRows.add(
+        DataRow(cells: [
+          DataCell(Text(betNumberController.text)),
+          DataCell(Text(selectedGame)),
+          DataCell(Text(selectedType)),
+          DataCell(Text(selectedTiming)),
+          DataCell(Text(betAmountController.text)),
+        ]),
+      );
+    });
+    // Clear text fields after adding bet
+    betNumberController.clear();
+    betAmountController.clear();
+  }
 }
 
 class _BetNumberInputFormatter extends TextInputFormatter {
@@ -320,7 +338,7 @@ class _BetNumberInputFormatter extends TextInputFormatter {
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     final String formattedText =
-        newValue.text.replaceAll(RegExp(r'[^0-9]'), '').split('').join('-');
+    newValue.text.replaceAll(RegExp(r'[^0-9]'), '').split('').join('-');
     return TextEditingValue(
       text: formattedText,
       selection: TextSelection.collapsed(offset: formattedText.length),
