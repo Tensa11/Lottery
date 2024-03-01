@@ -27,11 +27,11 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
   @override
   Widget build(BuildContext context) {
     // Format the current date
-    String formattedDate = DateFormat('EEE MMM dd yyyy').format(DateTime.now());
+    String formattedDate = DateFormat('EEE MMM dd yyyy').format(DateTime.now()).toUpperCase();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cerebro Lottery'),
+        title: const Text('Small Town Lottery'),
       ),
       drawer: Drawer(
         child: ListView(
@@ -169,8 +169,11 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                       const SizedBox(width: 4.0),
                       Text(
                         formattedDate,
-                        style:
-                            const TextStyle(fontSize: 16, color: Colors.white),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold, // Apply bold style
+                        ),
                       ),
                     ],
                   ),
@@ -178,37 +181,55 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
               ),
             ),
           ),
+          const SizedBox(height: 20),
           Expanded(
             child: DefaultTabController(
               length: 2,
               child: Column(
                 children: <Widget>[
-                  const Material(
-                    color: Colors.white,
-                    child: TabBar(
-                      indicatorSize: TabBarIndicatorSize.label,
-                      labelColor: Colors.black,
-                      // Set text color for selected tab
-                      unselectedLabelColor: Colors.black,
-                      // Set text color for unselected tab
-                      tabs: [
-                        Tab(
-                          child: Text(
-                            '3D',
-                            style: TextStyle(
-                                color:
-                                    Colors.black), // Set text color for the tab
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Card(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Column(
+                        children: [
+                          Material(
+                            color: Colors.white,
+                            child: TabBar(
+                              indicator: BoxDecoration(
+                                color: Colors.blue, // Set the indicator color to blue
+                              ),
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              labelColor: Colors.black,
+                              // Set text color for selected tab
+                              unselectedLabelColor: Colors.black,
+                              // Set text color for unselected tab
+                              tabs: [
+                                Tab(
+                                  child: Text(
+                                    '3D',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ), // Set text color for the tab
+                                  ),
+                                ),
+                                Tab(
+                                  child: Text(
+                                    'STL',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ), // Set text color for the tab
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Tab(
-                          child: Text(
-                            'STL',
-                            style: TextStyle(
-                                color:
-                                    Colors.black), // Set text color for the tab
-                          ),
-                        ),
-                      ],
+                          // Rest of your column content here
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
@@ -222,7 +243,7 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                             itemCount: 3, // Number of cards
                             itemBuilder: (context, index) {
                               String draw =
-                                  _generateDraw(); // Generate a random draw
+                              _generateDraw(); // Generate a random draw
                               List<double> chartData = _generateChartData(draw);
                               return Card(
                                 elevation: 5,
@@ -230,11 +251,11 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                   padding: const EdgeInsets.all(20.0),
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             '${_generatePrize()}',
@@ -245,13 +266,13 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                           Text(
                                             '$draw',
                                             style:
-                                                const TextStyle(fontSize: 16),
+                                            const TextStyle(fontSize: 16),
                                           ),
                                         ],
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        '${_generateTime()}',
+                                        '${['2PM', '5PM', '9PM'][index]}', // Use the index to get time in order
                                         style: const TextStyle(fontSize: 16),
                                       ),
                                       const SizedBox(height: 10),
@@ -261,9 +282,9 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                           LineChartData(
                                             gridData: FlGridData(show: false),
                                             titlesData:
-                                                FlTitlesData(show: false),
+                                            FlTitlesData(show: false),
                                             borderData:
-                                                FlBorderData(show: false),
+                                            FlBorderData(show: false),
                                             lineBarsData: [
                                               LineChartBarData(
                                                 spots: List.generate(
@@ -279,7 +300,7 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                                 barWidth: 3,
                                                 isStrokeCapRound: true,
                                                 belowBarData:
-                                                    BarAreaData(show: false),
+                                                BarAreaData(show: false),
                                               ),
                                             ],
                                           ),
@@ -300,18 +321,18 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                             itemCount: 3, // Number of cards
                             itemBuilder: (context, index) {
                               String draw =
-                                  _generateDraw(); // Generate a random draw
+                              _generateDraw(); // Generate a random draw
                               List<double> chartData = _generateChartData(draw);
                               return Card(
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             '${_generatePrize()}',
@@ -322,13 +343,13 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                           Text(
                                             '$draw',
                                             style:
-                                                const TextStyle(fontSize: 16),
+                                            const TextStyle(fontSize: 16),
                                           ),
                                         ],
                                       ),
                                       const SizedBox(height: 5),
                                       Text(
-                                        '${_generateTime()}',
+                                        '${['2PM', '5PM', '9PM'][index]}', // Use the index to get time in order
                                         style: const TextStyle(fontSize: 16),
                                       ),
                                       const SizedBox(height: 10),
@@ -338,9 +359,9 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                           LineChartData(
                                             gridData: FlGridData(show: false),
                                             titlesData:
-                                                FlTitlesData(show: false),
+                                            FlTitlesData(show: false),
                                             borderData:
-                                                FlBorderData(show: false),
+                                            FlBorderData(show: false),
                                             lineBarsData: [
                                               LineChartBarData(
                                                 spots: List.generate(
@@ -356,7 +377,7 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
                                                 barWidth: 3,
                                                 isStrokeCapRound: true,
                                                 belowBarData:
-                                                    BarAreaData(show: false),
+                                                BarAreaData(show: false),
                                               ),
                                             ],
                                           ),
@@ -405,12 +426,6 @@ class _LotteryHomePageState extends State<LotteryHomePage> {
     double prize = Random().nextDouble() * 1000 +
         100; // Generate a random number between 100 and 1099
     return '\$${prize.toStringAsFixed(2)}'; // Format with 2 decimals
-  }
-
-  // Function to generate random time
-  String _generateTime() {
-    List<String> times = ['2PM', '5PM', '9PM'];
-    return times[_generateRandomNumber() % 3];
   }
 
   // Function to generate random number between 0 and 9
